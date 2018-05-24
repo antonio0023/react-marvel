@@ -1,7 +1,9 @@
 {
-  "name": "react-spotify",
+  "name": "react-marvel",
   "version": "0.1.0",
+  "description": "Connection with Marvel's API using React",
   "private": true,
+  "author": "Henry Zarza",
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
