@@ -1,10 +1,10 @@
-# React-Spotify
+# React-Marvel
 
-This is a personal project using:
+This is a personal project for learning React using the Marvel's API:
 
-| React.js  | API Spotify |
+| React  | Marvel's API |
 | ------------- | ------------- |
-| [<img src="https://cdn-images-1.medium.com/max/1468/1*kt9otqHk14BZIMNruiG0BA.png" title="Reactjs" width=100>](https://reactjs.org/)  | [<img src="http://t3mexico.mx/home/wp-content/uploads/2017/03/Spotify.jpg" title="Sotify" width=100>](https://beta.developer.spotify.com/)  |
+| [<img src="https://cdn-images-1.medium.com/max/1468/1*kt9otqHk14BZIMNruiG0BA.png" title="Reactjs" width=100>](https://reactjs.org/)  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MarvelLogo.svg/2000px-MarvelLogo.svg.png" title="Marvel" width=100>](https://developer.marvel.com/)  |
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
