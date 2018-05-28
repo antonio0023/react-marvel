@@ -1,0 +1,32 @@
+:root {
+
+    /* Colors */
+    --black:                     #0D101A;
+    --white:                     #fff;
+    --primary-color:             #EE171F;
+    --dark-red:                  #6b0b03;
+    --dark:                      #150E1B;
+    --body-bg:                   rgba(203, 204, 213, .5);
+
+    /* Tiprography */
+    --font-size-base:              1rem;
+    --font-size-larger:            1.5rem;
+    --font-size-mini:              0.857rem;
+    --font-family:                 'Lora', serif;
+    --font-family-title:           'Bangers', cursive;
+
+    /* Fontweights */
+    --font-weight-bold:             700;
+    --font-weight-semi-bold:        600;
+    --font-weight-base:             400;
+    --font-weight-thin:             200;
+
+    /* Navbar */
+    --navbar-bg-color:            #FFFFFF;
+    --navbar-link-color:          #666;
+    --navbar-link-hover-color:    #0082b0;
+    --navbar-link-hover-bg:         transparent;
+
+    --animation-duration:           270ms;
+    --animation-function:           cubic-bezier(0.790, 0.010, 0.375, 0.995);
+}

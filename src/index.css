@@ -1,5 +1,7 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+@import url('https://fonts.googleapis.com/css?family=Lora');
+
+@import './css/variables.css';
+@import './css/layout.css';
+@import './css/utils.css';
