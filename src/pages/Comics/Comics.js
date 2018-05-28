@@ -4,7 +4,8 @@ class Comics extends Component {
     render() {
         return (
             <div>
-                Comics
+                <h1>iron man</h1>
+                React Marvel
             </div>
         );
     }
