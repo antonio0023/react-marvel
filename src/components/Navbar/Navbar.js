@@ -11,7 +11,6 @@ class Navbar extends Component {
                 <React.Fragment>
                     <ul>
                         <NavLink activeClassName="link--active" to="/comics">Comics</NavLink>
-                        <NavLink activeClassName="link--active" to="/creators">Creators</NavLink>
                         <NavLink activeClassName="link--active" to="/series">Series</NavLink>
                     </ul>
                     <div className="main-container">

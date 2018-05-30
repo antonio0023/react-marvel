@@ -1,6 +1,5 @@
 import Characters from './pages/Characters/Characters';
 import Comics from './pages/Comics/Comics';
-import Creators from './pages/Creators/Creators';
 import Series from './pages/Series/Series';
 
 const Pages = [
@@ -13,11 +12,6 @@ const Pages = [
         path: "/comics",
         exact: true,
         main: Comics
-    },
-    {
-        path: "/creators",
-        exact: true,
-        main: Creators
     },
     {
         path: "/series",
