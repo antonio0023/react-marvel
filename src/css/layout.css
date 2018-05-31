@@ -36,6 +36,52 @@ h4 {
   font-size: 1.5rem;
 }
 
+input, select {
+  border: .05rem solid var(--dark);
+  padding: .375rem .5rem;
+  display: block;
+  background-color: var(--white);
+  border-radius: .25rem;
+  width: 100%;
+  font-family: inherit;
+  line-height: inherit;
+  font-size: 1rem;
+  color: var(--dark);
+  outline: none;
+  transition-property: border;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-function);
+}
+
+input:focus, select:focus {
+  border-color: var(--primary-color);
+}
+
+button {
+  padding: .275rem .5rem;
+  font-family: inherit;
+  line-height: inherit;
+  font-size: 1rem;
+  outline: none;
+  border: .05rem solid var(--dark);
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--transition-function);
+}
+
+label {
+  font-size: var(--font-size-mini);
+}
+
 .main-container {
   padding: 5rem 2rem 1rem;
+}
+
+.main-container--sidebar {
+  padding-left: 18rem;
+}
+
+@media only screen and (max-width: 50rem) {
+  .main-container--sidebar {
+    padding-left: 2rem;
+  }
 }
