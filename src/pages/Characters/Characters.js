@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ApiService from '../../api/api.service';
+//import ApiService from '../../api/api.service';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import CharacterInfo from '../../components/CharacterInfo/CharacterInfo';
 import Pagination from '../../components/Pagination/Pagination';
@@ -22,7 +22,7 @@ class Characters extends Component {
     }
 
     componentDidMount() {
-        ApiService().getData('characters', `limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}`)
+        /* ApiService().getData('characters', `limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}`)
             .then(response => {
                 if (response.status !== 200) throw new Error('Error');
                 return response.json();
@@ -37,7 +37,7 @@ class Characters extends Component {
             })
             .catch(err => {
                 console.log('error', err);
-            });
+            }); */
     }
 
     render() {

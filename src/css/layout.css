@@ -8,12 +8,13 @@
 }
 
 body {
-  font-family: var(--font-family);
   line-height: 1.5;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-base);
+  text-align: left;
   color: var(--dark);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
   background-color: var(--body-bg);
+  font-weight: var(--font-weight-base);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,4 +34,8 @@ h2 {
 
 h4 {
   font-size: 1.5rem;
+}
+
+.main-container {
+  padding: 5rem 2rem 1rem;
 }
