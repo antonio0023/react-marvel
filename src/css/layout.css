@@ -68,6 +68,11 @@ button {
   transition: all var(--transition-duration) var(--transition-function);
 }
 
+a {
+  cursor: pointer;
+  transition: all var(--transition-duration) linear;
+}
+
 label {
   font-size: var(--font-size-mini);
 }

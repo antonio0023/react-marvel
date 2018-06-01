@@ -62,7 +62,7 @@
 .checkbox {
     user-select: none;
     position: relative;
-    height: 4rem;
+    height: 3rem;
 }
 
 .checkbox > input {
@@ -102,6 +102,29 @@
 .checkbox > input:checked + label:after {
     transform: translateX(1.6rem);
     box-shadow: 0 0 .5rem var(--white);
+}
+/* Checkbox */
+
+.sidebar__link-creator {
+    font-weight: var(--font-weight-semi-bold);
+}
+
+.sidebar__link-creator:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+.sidebar__link-view-creator:hover {
+    color: var(--primary-color);    
+}
+
+.sidebar__filters--creators {
+    align-items: flex-start;
+}
+
+.sidebar__item--creators {
+    max-height: calc(100vh - 4.4rem - 75px - 120px - 200px);
+    overflow-y: auto;
 }
 
 @media only screen and (max-width: 50rem) {

@@ -41,32 +41,14 @@ class Sidebar extends Component {
                         </div>
                     </div>
                 </div>
-                {/* <div className="sidebar__item">
+                <div className="sidebar__item sidebar__item--creators">
                     <h2 className="sidebar__title">Creators</h2>
-                    <div className="sidebar__filters">
-                        <div>
-                            <a>Stan Lee</a>
-                            <a>&#9673;</a>
-                        </div>
-                        <div>
-                            <a>Stan Lee</a>
-                            <a>&#9673;</a>
-                        </div>
-                        <div>
-                            <a>Stan Lee</a>
-                            <a>&#9673;</a>
-                        </div>
-                        <div>
-                            <a>Stan Lee</a>
-                            <a>&#9673;</a>
-                        </div>
-                        <div>
-                            <a>Stan Lee</a>
-                            <a>&#9673;</a>
-                        </div>
+                    <div className="sidebar__filters sidebar__filters--creators">
+                        <a className="sidebar__link-creator">Stan Lee</a>
+                        <a className="sidebar__link-view-creator"><i className="material-icons">visibility</i></a>
                     </div>
                 </div>
-                <div className="sidebar__footer">
+                {/*<div className="sidebar__footer">
                     <p>
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui, voluptate. Veritatis cumque doloribus dolore sequi! Reprehenderit dignissimos libero id et blanditiis aut voluptates dolorem non tenetur itaque. Sapiente, ea odit!
                     </p>
