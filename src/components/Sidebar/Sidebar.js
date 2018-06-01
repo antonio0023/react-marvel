@@ -15,7 +15,7 @@ class Sidebar extends Component {
     render() {
         return (
             <div className="sidebar">
-                <div className="sidebar__item">
+                <div className="sidebar__item sidebar__item--search">
                     <div className="input__group">
                         <input type="text" placeholder="Search by name"/>
                         <button className="button__search"><i className="material-icons">search</i></button>
@@ -31,26 +31,17 @@ class Sidebar extends Component {
                         </select>
                     </div>
                 </div>
-                {/* <div className="sidebar__item">
+                <div className="sidebar__item">
                     <h2 className="sidebar__title">Order by</h2>
                     <div className="sidebar__filters">
-                        <div>
-                            Name
-                            <div>
-                                <label htmlFor="name">Ascendant</label>
-                                <input type="checkbox" name="name"/>
-                            </div>
-                        </div>
-                        <div>
-                            Name
-                            <div>
-                                <label htmlFor="name">Ascendant</label>
-                                <input type="checkbox" name="name"/>
-                            </div>
+                        Name
+                        <div className="checkbox">
+                            <input type="checkbox" name="name" id="name"/>
+                            <label htmlFor="name">Ascendant</label>
                         </div>
                     </div>
                 </div>
-                <div className="sidebar__item">
+                {/* <div className="sidebar__item">
                     <h2 className="sidebar__title">Creators</h2>
                     <div className="sidebar__filters">
                         <div>
