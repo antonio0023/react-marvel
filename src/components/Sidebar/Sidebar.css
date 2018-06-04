@@ -114,7 +114,8 @@
     font-weight: var(--font-weight-semi-bold);
 }
 
-.sidebar__link-creator:hover {
+.sidebar__link-creator:hover,
+.sidebar__link-attribution:hover {
     text-decoration: underline;
     color: var(--primary-color);
 }
@@ -133,18 +134,19 @@
 }
 
 .sidebar-creators-container {
-    max-height: calc(100vh - 4.4rem - 75px - 248px);
+    max-height: calc(100vh - 4.4rem - 75px - 225px);
     overflow-y: auto;
     margin-top: .75rem;
 }
 
 .sidebar__link-attribution {
-    color: var(--primary-color);
+    color: var(--white);
     text-decoration: underline;
 }
 
 @media only screen and (max-width: 50rem) {
     .sidebar {
+        z-index: 1;
         transform: translateX(-17rem);
     }
 

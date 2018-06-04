@@ -80,14 +80,13 @@ class Sidebar extends Component {
                                     <a className="sidebar__link-creator" onClick={(e) => this.findByCreator(e, creator.id)}>
                                         {creator.fullName}
                                     </a>
-                                    <a className="sidebar__link-view-creator"><i className="material-icons">visibility</i></a>
+                                    <a className="sidebar__link-view-creator"><i className="material-icons">account_circle</i></a>
                                 </div> : ''
                         })}
                     </div>
                 </div>
                 <div className="sidebar__item">
                     <a className="sidebar__link-attribution" href="http://marvel.com" target="blank">{this.state.attribution}</a> <br />
-                    Done by Henry Zarza
                 </div>
             </div>
         );
