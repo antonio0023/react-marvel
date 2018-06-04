@@ -85,6 +85,15 @@ label {
   padding-left: 18rem;
 }
 
+.pos_relative {
+  position: relative;
+}
+
+.container__cards {
+  overflow-y: auto;
+  max-height: calc(100vh - 70px - 58.44px);
+}
+
 @media only screen and (max-width: 50rem) {
   .main-container--sidebar {
     padding-left: 2rem;
