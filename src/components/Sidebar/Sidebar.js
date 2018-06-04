@@ -52,11 +52,10 @@ class Sidebar extends Component {
                     <div className="select__container">
                         <label htmlFor="perPage">Per page</label>
                         <select name="perPage" id="perPage">
-                            <option value="10">10</option>
-                            <option value="10">20</option>
-                            <option value="10">30</option>
-                            <option value="10">40</option>
-                            <option value="10">50</option>
+                            <option value="10">12</option>
+                            <option value="10">24</option>
+                            <option value="10">36</option>
+                            <option value="10">48</option>
                         </select>
                     </div>
                     <div className="sidebar__filters">
