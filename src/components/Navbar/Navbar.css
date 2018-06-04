@@ -1,6 +1,8 @@
 .navbar {
+    z-index: 1;
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     position: fixed;
     align-items: center;
     padding: .5rem 1rem .1rem;
