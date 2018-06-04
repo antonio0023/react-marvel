@@ -1,15 +1,44 @@
 import React, { Component } from 'react';
+import ApiService from '../../api/api.service';
 import './Sidebar.css';
 
 class Sidebar extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            attribution: ''
+        }
+    }
+
     componentDidMount() {
         this.mainContainer = document.querySelector('.main-container');
         this.mainContainer.classList.add('main-container--sidebar');
+        ApiService().getData('creators', `limit=30`)
+            .then(response => {
+                if (response.status !== 200) throw new Error('Error');
+                return response.json();
+            })
+            .then(response => {
+                //console.log(response);
+                this.setState({
+                    data: response.data.results,
+                    attribution: response.attributionText
+                });
+            })
+            .catch(err => {
+                console.log('Error', err);
+            });
     }
 
     componentWillUnmount() {
         this.mainContainer.classList.remove('main-container--sidebar');
+    }
+
+    findByCreator = (e, id) => {
+        console.log(id);
+        e.target.classList.toggle('sidebar__link-creator--active');
     }
 
     render() {
@@ -17,7 +46,7 @@ class Sidebar extends Component {
             <div className="sidebar">
                 <div className="sidebar__item sidebar__item--search">
                     <div className="input__group">
-                        <input type="text" placeholder="Search by name"/>
+                        <input type="text" placeholder="Search by name" />
                         <button className="button__search"><i className="material-icons">search</i></button>
                     </div>
                     <div className="select__container">
@@ -30,29 +59,36 @@ class Sidebar extends Component {
                             <option value="10">50</option>
                         </select>
                     </div>
-                </div>
-                <div className="sidebar__item">
-                    <h2 className="sidebar__title">Order by</h2>
                     <div className="sidebar__filters">
-                        Name
+                        Order by Name
                         <div className="checkbox">
-                            <input type="checkbox" name="name" id="name"/>
+                            <input type="checkbox" name="name" id="name" />
                             <label htmlFor="name">Ascendant</label>
                         </div>
                     </div>
                 </div>
                 <div className="sidebar__item sidebar__item--creators">
                     <h2 className="sidebar__title">Creators</h2>
-                    <div className="sidebar__filters sidebar__filters--creators">
-                        <a className="sidebar__link-creator">Stan Lee</a>
-                        <a className="sidebar__link-view-creator"><i className="material-icons">visibility</i></a>
+                    <div className="input__group">
+                        <input type="text" placeholder="Search by name" />
+                        <button className="button__search"><i className="material-icons">search</i></button>
+                    </div>
+                    <div className="sidebar-creators-container">
+                        {this.state.data.map((creator) => {
+                            return creator.fullName ?
+                                <div key={creator.id} className="sidebar__filters sidebar__filters--creators">
+                                    <a className="sidebar__link-creator" onClick={(e) => this.findByCreator(e, creator.id)}>
+                                        {creator.fullName}
+                                    </a>
+                                    <a className="sidebar__link-view-creator"><i className="material-icons">visibility</i></a>
+                                </div> : ''
+                        })}
                     </div>
                 </div>
-                {/*<div className="sidebar__footer">
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui, voluptate. Veritatis cumque doloribus dolore sequi! Reprehenderit dignissimos libero id et blanditiis aut voluptates dolorem non tenetur itaque. Sapiente, ea odit!
-                    </p>
-                </div> */}
+                <div className="sidebar__item">
+                    <a className="sidebar__link-attribution" href="http://marvel.com" target="blank">{this.state.attribution}</a> <br />
+                    Done by Henry Zarza
+                </div>
             </div>
         );
     }

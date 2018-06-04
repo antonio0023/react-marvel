@@ -7,12 +7,19 @@ import './Navbar.css';
 
 class Navbar extends Component {
 
+    openSidebar = () => {
+        const refSidebar = document.querySelector('.sidebar');
+        if (refSidebar)
+            refSidebar.classList.toggle('sidebar--open');
+    }
+
     render() {
         return (
             <HashRouter>
                 <React.Fragment>
                     <nav className="navbar">
-                        <NavLink to="/">
+                        <a className="link-open-sidebar" onClick={this.openSidebar}><i className="material-icons">menu</i></a>
+                        <NavLink className="navbar__item--first" to="/">
                             <img className="navbar__img" src="marvel.png" alt="Marvel Logo" />
                         </NavLink>
                         <div>
