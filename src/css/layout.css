@@ -93,12 +93,26 @@ label {
   overflow-y: auto;
   display: grid;
   grid-gap: 1rem;
+  margin: 0 auto;
+  max-width: 85rem;
   height: calc(100vh - 70px - 58.44px);
   grid-template-columns: repeat(3, 1fr);
+}
+
+@media only screen and (max-width: 60rem) {
+  .container__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media only screen and (max-width: 50rem) {
   .main-container--sidebar {
     padding-left: 2rem;
+  }
+}
+
+@media only screen and (max-width: 31rem) {
+  .container__cards {
+    grid-template-columns: 1fr;
   }
 }
