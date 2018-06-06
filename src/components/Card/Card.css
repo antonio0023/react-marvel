@@ -1,5 +1,5 @@
 .card {
-    width: 100%;
+    line-height: 0;
     cursor: pointer;
     border-radius: .2rem;
     background-color: var(--white);
@@ -13,23 +13,11 @@
 
 .card__title {
     margin: 0;
-    /* width: 110%; */
     position: relative;
     color: var(--white);
     padding: .2rem .4rem;
     background-color: var(--dark-red);
-}
-
-.card__title:after {
-    /* content: ''; */
-    right: .05rem;
-    bottom: -1.41rem;
-    position: absolute;
-    border: .73rem solid;
-    border-top-color: #6b0b03e3;
-    border-left-color: #6b0b03e3;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
+    box-shadow: 0 .9rem 2rem rgba(0,0,0,0.25), 0 .8rem .9rem rgba(0,0,0,0.22)
 }
 
 .card__image {
