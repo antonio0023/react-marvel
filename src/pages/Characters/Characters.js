@@ -52,7 +52,7 @@ class Characters extends Component {
                     }
                 </div>
                 {/* <CharacterInfo /> */}
-                <Pagination />
+                <Pagination data={this.state.pagination}/>
             </div>
         );
     }

@@ -17,7 +17,7 @@ class Pagination extends Component {
                     <button className="pagination__button"><i className="material-icons">last_page</i></button>
                 </div>
                 <div className="pagination__info">
-                    10 of 12345 <span className="pagination__info--span">Reg</span>
+                    {this.props.data.limit} of {this.props.data.total} <span className="pagination__info--span">Reg</span>
                 </div>
             </div>
         );
