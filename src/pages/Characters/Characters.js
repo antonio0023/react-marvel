@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ApiService from '../../api/api.service';
 import Sidebar from '../../components/Sidebar/Sidebar';
-//import CharacterInfo from '../../components/CharacterInfo/CharacterInfo';
+import CharacterInfo from '../../components/CharacterInfo/CharacterInfo';
 import Pagination from '../../components/Pagination/Pagination';
 import Card from '../../components/Card/Card';
 
@@ -22,7 +22,7 @@ class Characters extends Component {
     }
 
     componentDidMount() {
-        ApiService().getData('characters', `limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}`)
+        ApiService().getData('characters', `limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}&nameStartsWith=spider`)
             .then(response => {
                 if (response.status !== 200) throw new Error('Error');
                 return response.json();
@@ -51,7 +51,7 @@ class Characters extends Component {
                         })
                     }
                 </div>
-                {/* <CharacterInfo /> */}
+                <CharacterInfo />
                 <Pagination data={this.state.pagination}/>
             </div>
         );
