@@ -39,7 +39,7 @@ h4 {
 
 input, select {
   border: .05rem solid var(--dark);
-  padding: .375rem .5rem;
+  padding: .2rem .5rem;
   display: block;
   background-color: var(--white);
   border-radius: .25rem;
