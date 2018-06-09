@@ -6,17 +6,25 @@
     height: 100vh;
     position: fixed;
     overflow-y: auto;
+    transform: translateX(23rem);
     background-color: var(--gray);
+    transition-property: transform;
+    transition-duration: var(--transition-duration);
+    transition-timing-function: var(--transition-function);
 }
 
-.character-info:before {
+.character-info__backdrop {
     top: 0;
     left: 0;
-    content: '';
+    z-index: 2;
+    width: 100vw;
     height: 100vh;
     position: fixed;
-    width: calc(100vw - 21rem);
-    background-color: rgba(0,0,0,.35);
+    background-color: rgba(0,0,0,.5);
+}
+
+.character-info--visible {
+    transform: translateX(0);
 }
 
 .character-info__header {
@@ -59,6 +67,7 @@
 
 .character-info__link-content {
     display: flex;
+    flex-wrap: wrap;
     margin-top: .5rem;
     justify-content: space-between;
 }
