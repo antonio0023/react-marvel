@@ -17,7 +17,8 @@ class Characters extends Component {
                 total: 0
             },
             orderBy: 'name',
-            config: ''
+            config: '',
+            characterSelected: undefined
         }
     }
 
@@ -40,6 +41,18 @@ class Characters extends Component {
             });
     }
 
+    selectedCharacter = (id) => {
+        this.setState({
+            characterSelected: this.state.data.find(el => el.id === id)
+        });
+    }
+
+    clearSelectedCharacter = () => {
+        this.setState({
+            characterSelected: undefined
+        });
+    }
+
     render() {
         return (
             <div className="pos_relative">
@@ -47,11 +60,13 @@ class Characters extends Component {
                 <div className="container__cards">
                     {
                         this.state.data.map((character) => {
-                            return <Card key={character.id} data={{id: character.id, name: character.name, thumbnail: character.thumbnail}} />
+                            return <Card key={character.id}
+                                        selectedCharacter={this.selectedCharacter}
+                                        data={{id: character.id, name: character.name, thumbnail: character.thumbnail}} />
                         })
                     }
                 </div>
-                <CharacterInfo />
+                <CharacterInfo data={this.state.characterSelected} close={this.clearSelectedCharacter}/>
                 <Pagination data={this.state.pagination}/>
             </div>
         );
