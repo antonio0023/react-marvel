@@ -12,8 +12,9 @@ class Characters extends Component {
         this.state = {
             data: [],
             pagination: {
-                limit: 12,
-                offset: 1,
+                perPage: 12,
+                limit: 100,
+                offset: 0,
                 total: 0
             },
             orderBy: 'name',
@@ -23,7 +24,8 @@ class Characters extends Component {
     }
 
     componentDidMount() {
-        ApiService().getData('characters', `limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}&nameStartsWith=spider`)
+        //ApiService().getData('characters', `limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}&nameStartsWith=spider`)
+        ApiService().getData('characters', `orderBy=${this.state.orderBy}&limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}`)
             .then(response => {
                 if (response.status !== 200) throw new Error('Error');
                 return response.json();
@@ -53,6 +55,10 @@ class Characters extends Component {
         });
     }
 
+    pageSelected = (currentPage) => {
+        console.log(currentPage);
+    }
+
     render() {
         return (
             <div className="pos_relative">
@@ -67,7 +73,7 @@ class Characters extends Component {
                     }
                 </div>
                 <CharacterInfo data={this.state.characterSelected} close={this.clearSelectedCharacter}/>
-                <Pagination data={this.state.pagination}/>
+                <Pagination pageSelected={this.pageSelected} data={this.state.pagination}/>
             </div>
         );
     }
