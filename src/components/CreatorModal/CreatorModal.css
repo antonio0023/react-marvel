@@ -1,0 +1,142 @@
+.creator-modal {
+    left: 0;
+    right: 0;
+    top: 5rem;
+    z-index: 3;
+    margin: 0 auto;
+    position: fixed;
+    max-height: 80%;
+    max-width: 50rem;
+    transform: scale(1);
+    background-color: transparent;
+    transition-property: transform;
+    transition-duration: var(--transition-duration);
+    transition-timing-function: var(--transition-function);
+}
+
+.creator-modal--close {
+    transform: scale(0);
+}
+
+.creator-modal__header {
+    width: 22rem;
+    padding-top: 4rem;
+    text-align: center;
+    position: relative;
+    margin: 0 auto 1rem;
+    padding-bottom: 1rem;
+    border-radius: .3rem;
+    background-color: var(--white);
+}
+
+.creator-modal__image {
+    left: 0;
+    right: 0;
+    top: -4rem;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: var(--box-shadow);
+}
+
+.creator-modal__title {
+    margin-top: 1rem;
+    margin-bottom: .2rem;
+}
+
+.creator-modal__link {
+    padding: .2rem .4rem;
+    border-radius: .25rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    background-color: var(--white);
+    border: 1pt solid var(--primary-color);
+}
+
+.creator-modal__link:hover {
+    box-shadow: var(--box-shadow);
+}
+
+.creator-modal__content {
+    display: grid;
+    grid-gap: 1rem;
+    padding: 0 1rem;
+    overflow-y: auto;
+    align-items: center;
+    grid-template-areas:
+        'stories comics'
+        'series events';
+    justify-content: center;
+    height: calc(100vh - 18.5rem);
+}
+
+.creator-modal__content-item {
+    padding: .4rem .8rem;
+    border-radius: .25rem;
+    background-color: var(--white);
+}
+
+.creator-modal__content-title {
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+.creator-modal__content-info {
+    text-align: right;
+    font-size: var(--font-size-mini);
+    font-weight: var(--font-weight-base);
+}
+
+.creator-modal__content-list li:last-child::after {
+    content: '...';
+    display: block;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.creator-modal__content--stories {
+    grid-area: stories;
+}
+
+.creator-modal__content--comics {
+    grid-area: comics;
+}
+
+.creator-modal__content--series {
+    grid-area: series;
+}
+
+.creator-modal__content--events {
+    grid-area: events;
+}
+
+.creator-modal__button-close {
+    border: none;
+    float: right;
+    line-height: 0;
+    padding: .2rem;
+    border-radius: 50%;
+    color: var(--primary-color);
+}
+
+.creator-modal__button-close:hover {
+    color: var(--white);
+    background-color: var(--primary-color);
+}
+
+@media only screen and (max-width: 78rem) {
+    .creator-modal {
+        max-width: 80%;
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    .creator-modal {
+        max-width: 100%;
+    }
+
+    .creator-modal__content {
+        grid-template-areas: 'stories' 'comics' 'series' 'events';
+    }
+}
+  
