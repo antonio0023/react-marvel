@@ -13,7 +13,6 @@ class Characters extends Component {
             data: [],
             pagination: {
                 perPage: 12,
-                limit: 12,//100,
                 offset: 0,
                 total: 0
             },
@@ -24,8 +23,8 @@ class Characters extends Component {
     }
 
     componentDidMount() {
-        //ApiService().getData('characters', `limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}&nameStartsWith=spider`)
-        ApiService().getData('characters', `orderBy=${this.state.orderBy}&limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}`)
+        //ApiService().getData('characters', `orderBy=${this.state.orderBy}&limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}&nameStartsWith=spider`)
+        ApiService().getData('characters', `orderBy=${this.state.orderBy}&limit=${this.state.pagination.perPage}&offset=${this.state.pagination.offset}`)
             .then(response => {
                 if (response.status !== 200) throw new Error('Error');
                 return response.json();

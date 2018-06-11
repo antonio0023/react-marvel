@@ -13,16 +13,21 @@ class Pagination extends Component {
     }
 
     getNumberPage = () => {
-        const { limit, total } = this.props.data;
-        return Math.ceil(total / limit);
+        const { perPage, total } = this.props.data;
+        return Math.ceil(total / perPage);
+    }
+
+    maxPaginationShow = () => {
+        const numPage = this.getNumberPage();
+        return numPage > 5 ? 5 : numPage;
     }
 
     firstPage = () => {
-        this.setState((prevState) => ({
+        this.setState({
             current: 1,
             start: 1,
-            end: 5
-        }));
+            end: this.maxPaginationShow()
+        });
         this.props.pageSelected(0);
     }
 
@@ -30,39 +35,56 @@ class Pagination extends Component {
         const maxPages = this.getNumberPage();
 
         if (this.state.current !== maxPages) {
-            const currentPage = this.state.current + 1;
-            
-            this.setState((prevState) => ({
-                current: currentPage,
-                start: prevState.start + 1,
-                end: prevState.end + 1
-            }));
-            const page = ((currentPage - 1) * this.props.data.limit) + 1;
+            const current = this.state.current + 1;
+            const end = this.state.end + 1 > maxPages ? this.state.end : this.state.end + 1;
+            const start = maxPages - this.state.start >= this.maxPaginationShow() ? this.state.start + 1 : this.state.start;
+            this.setState({ current, start, end });
+
+            const page = ((current - 1) * this.props.data.perPage) + 1;
             this.props.pageSelected(page);
         }
     }
 
-    previousPage = (currentPage) => {
+    previousPage = () => {
+        if (this.state.current !== 1) {
+            const current = this.state.current - 1;
+            const end = this.state.end - 1 < this.maxPaginationShow()  ? this.state.end : this.state.end - 1;
+            const start = this.state.start - 1 >= 1 ? this.state.start - 1 : this.state.start;
+            this.setState({ current, start, end });
 
+            const page = ((current - 1) * this.props.data.perPage) + 1;
+            this.props.pageSelected(page);
+        }
     }
 
     specificPage = (numberPage) => {
         this.setState({
             current: numberPage
         });
-        const currentPage = ((numberPage - 1) * this.props.data.limit) + 1;
+
+        /* const end = this.state.end + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
+        const start = this.state.start + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
+
+        this.setState({
+            current: numberPage,
+            start: prevState.start + 1,
+            end
+        }); */
+
+        const currentPage = ((numberPage - 1) * this.props.data.perPage) + 1;
         this.props.pageSelected(currentPage === 1 ? 0 : currentPage);
     }
 
     lastPage = () => {
         const numPage = this.getNumberPage();
-        const currentPage = ((numPage - 1) * this.props.data.limit) + 1;
-
-        this.setState((prevState) => ({
+        
+        this.setState({
             current: numPage,
-            start: numPage - 5,
+            start: this.maxPaginationShow() === numPage ? 1 : numPage - 5,
             end: numPage
-        }));
+        });
+
+        const currentPage = ((numPage - 1) * this.props.data.perPage) + 1;
         this.props.pageSelected(currentPage);
     }
 
@@ -87,15 +109,13 @@ class Pagination extends Component {
             <div className="pagination">
                 <div className="pagination__container">
                     <button className="pagination__button" onClick={this.firstPage}><i className="material-icons">first_page</i></button>
-                    <button className="pagination__button"><i className="material-icons">chevron_left</i></button>
-
+                    <button className="pagination__button" onClick={this.previousPage}><i className="material-icons">chevron_left</i></button>
                     {this.drawButtons()}
-                    
                     <button className="pagination__button" onClick={this.nextPage}><i className="material-icons">chevron_right</i></button>
                     <button className="pagination__button" onClick={this.lastPage}><i className="material-icons">last_page</i></button>
                 </div>
                 <div className="pagination__info">
-                    {this.props.data.limit} of {this.props.data.total} <span className="pagination__info--span">Reg</span>
+                    {this.props.data.perPage} of {this.props.data.total} <span className="pagination__info--span">Reg</span>
                 </div>
             </div>
         );
