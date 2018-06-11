@@ -13,7 +13,7 @@ class Characters extends Component {
             data: [],
             pagination: {
                 perPage: 12,
-                limit: 100,
+                limit: 12,//100,
                 offset: 0,
                 total: 0
             },
@@ -31,7 +31,7 @@ class Characters extends Component {
                 return response.json();
             })
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 this.setState((prevState) => ({
                     data: response.data.results,
                     config: response.attributionText,

@@ -6,7 +6,7 @@ class CharacterInfo extends Component {
         const { data } = this.props;
         return (
             <React.Fragment>
-                {data ? <div className="character-info__backdrop" onClick={this.props.close}></div> : ''}
+                {data ? <div className="backdrop" onClick={this.props.close}></div> : ''}
                 <div className={`character-info ${data ? 'character-info--visible' : ''}`}>
                     {data ?
                         <React.Fragment>
@@ -33,8 +33,13 @@ class CharacterInfo extends Component {
                             <div className="character-info__content">
                                 <a className="character-info__link" href={data.stories.collectionURI} target="blank">stories</a>
                                 <h6 className="character-info__available">Available: <span className="emphasize">{data.stories.available}</span> </h6>
-                                <ul className="character-info__list">
-                                    {data.stories.items.slice(0, 5).map((el, index) => <li key={index}>{el.name} ### {el.type}</li>)}
+                                <ul className="list-story">
+                                    {data.stories.items.slice(0, 5).map((el, index) => {
+                                        return <li className={`list-story__item ${el.type === 'interiorStory' ? 'story--interior' : 'story--cover'}`} key={index}>
+                                            {el.name}
+                                            {el.type === 'interiorStory' ? <i className="material-icons" title="Interior">assignment_returned</i> : <i className="material-icons" title="Cover">assignment_ind</i> }
+                                        </li>
+                                    })}
                                 </ul>
                             </div>
                             <div className="character-info__content">
