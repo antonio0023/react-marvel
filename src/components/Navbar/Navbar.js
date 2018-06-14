@@ -20,7 +20,7 @@ class Navbar extends Component {
                     <nav className="navbar">
                         <a className="link-open-sidebar" onClick={this.openSidebar}><i className="material-icons">menu</i></a>
                         <NavLink className="navbar__item--first" to="/">
-                            <img className="navbar__img" src="marvel.png" alt="Marvel Logo" />
+                            <img className="navbar__img" src="images/marvel.png" alt="Marvel Logo" />
                         </NavLink>
                         <div>
                             <NavLink className="navbar__item" activeClassName="navbar__item--active" to="/comics">Comics</NavLink>
