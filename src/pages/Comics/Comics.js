@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import Loading from '../../components/Loading/Loading';
 
 class Comics extends Component {
     render() {
         return (
             <div>
                 <h1>iron man</h1>
-                React Marvel
+                <Loading />
             </div>
         );
     }
