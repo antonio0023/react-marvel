@@ -5,7 +5,10 @@ class Loading extends Component {
     render() {
         return (
             <div className="loading">
-                <img className="loading__image" src="images/ironman-loading.png" alt="Iron Man Loading"/>
+                <div className="container__loading">
+                    <img className="loading__image" src="images/ironman-loading.png" alt="Iron Man Loading"/>
+                    <div className="container__loading--shadown">Loading...</div>
+                </div>
             </div>
         );
     }

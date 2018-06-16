@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import CharacterInfo from '../../components/CharacterInfo/CharacterInfo';
 import Pagination from '../../components/Pagination/Pagination';
 import Card from '../../components/Card/Card';
+import Loading from '../../components/Loading/Loading';
 
 class Characters extends Component {
 
@@ -18,7 +19,8 @@ class Characters extends Component {
             },
             orderBy: 'name',
             config: '',
-            characterSelected: undefined
+            characterSelected: undefined,
+            loading: true
         }
         this.sidebarActions = {
             creator: this.creatorSelected
@@ -37,7 +39,8 @@ class Characters extends Component {
                 this.setState((prevState) => ({
                     data: response.data.results,
                     config: response.attributionText,
-                    pagination: {...prevState.pagination, total: response.data.total }
+                    pagination: {...prevState.pagination, total: response.data.total },
+                    loading: false
                 }));
             })
             .catch(err => {
@@ -70,12 +73,15 @@ class Characters extends Component {
             <div className="pos_relative">
                 <Sidebar actions={this.sidebarActions}/>
                 <div className="container__cards">
-                    {
-                        this.state.data.map((character) => {
-                            return <Card key={character.id}
-                                        selectedCharacter={this.selectedCharacter}
-                                        data={{id: character.id, name: character.name, thumbnail: character.thumbnail}} />
-                        })
+                    {this.state.loading ? <Loading /> :
+                        <React.Fragment>
+                            {this.state.data.map((character) => {
+                                return <Card key={character.id}
+                                            selectedCharacter={this.selectedCharacter}
+                                            data={{id: character.id, name: character.name, thumbnail: character.thumbnail}} />
+                                })
+                            }
+                        </React.Fragment>
                     }
                 </div>
                 <CharacterInfo data={this.state.characterSelected} close={this.clearSelectedCharacter}/>
