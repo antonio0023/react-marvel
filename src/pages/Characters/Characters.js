@@ -20,6 +20,9 @@ class Characters extends Component {
             config: '',
             characterSelected: undefined
         }
+        this.sidebarActions = {
+            creator: this.creatorSelected
+        }
     }
 
     componentDidMount() {
@@ -58,10 +61,14 @@ class Characters extends Component {
         console.log(currentPage);
     }
 
+    creatorSelected = (idCreator) => {
+        console.log(idCreator);
+    }
+
     render() {
         return (
             <div className="pos_relative">
-                <Sidebar />
+                <Sidebar actions={this.sidebarActions}/>
                 <div className="container__cards">
                     {
                         this.state.data.map((character) => {

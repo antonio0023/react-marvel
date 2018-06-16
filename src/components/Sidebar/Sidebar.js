@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ApiService from '../../api/api.service';
 import CreatorModal from '../CreatorModal/CreatorModal';
+import InputSearch from '../InputSearch/InputSearch';
 
 import './Sidebar.css';
 
@@ -12,28 +13,14 @@ class Sidebar extends Component {
             data: [],
             attribution: '',
             creatorSelected: undefined,
-            filter: ''
+            loading: true
         }
     }
 
     componentDidMount() {
         this.mainContainer = document.querySelector('.main-container');
         this.mainContainer.classList.add('main-container--sidebar');
-        //ApiService().getData('creators', `limit=30&nameStartsWith=stan`)
-        ApiService().getData('creators', `limit=30`)
-            .then(response => {
-                if (response.status !== 200) throw new Error('Error');
-                return response.json();
-            })
-            .then(response => {
-                this.setState({
-                    data: response.data.results,
-                    attribution: response.attributionText
-                });
-            })
-            .catch(err => {
-                console.log('Error', err);
-            });
+        this.getData();
     }
 
     componentWillUnmount() {
@@ -41,7 +28,8 @@ class Sidebar extends Component {
     }
 
     findByCreator = (e, id) => {
-        console.log(id);
+        //console.log(id);
+        this.props.actions.creator(id);
         e.target.classList.toggle('sidebar__link-creator--active');
     }
 
@@ -57,15 +45,33 @@ class Sidebar extends Component {
         });
     }
 
+    getData = (value) => {
+        const query = value ? `&nameStartsWith=${value}` : '';
+        this.setState({ loading: true });
+
+        ApiService().getData('creators', `limit=30${query}`)
+            .then(response => {
+                if (response.status !== 200) throw new Error('Error');
+                return response.json();
+            })
+            .then(response => {
+                this.setState({
+                    data: response.data.results,
+                    attribution: response.attributionText,
+                    loading: false
+                });
+            })
+            .catch(err => {
+                console.log('Error', err);
+            });
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div className="sidebar">
                     <div className="sidebar__item sidebar__item--search">
-                        <div className="input__group">
-                            <input type="text" placeholder="Search by name" />
-                            <button className="button__search"><i className="material-icons">search</i></button>
-                        </div>
+                        {/* <InputSearch onSearch={this.searchCreator} /> */}
                         <div className="select__container">
                             <label htmlFor="perPage">Per page</label>
                             <select name="perPage" id="perPage">
@@ -84,21 +90,22 @@ class Sidebar extends Component {
                         </div>
                     </div>
                     <div className="sidebar__item sidebar__item--creators">
-                        <h2 className="sidebar__title">Creators</h2>
-                        <div className="input__group">
-                            <input type="text" placeholder="Search by name" />
-                            <button className="button__search"><i className="material-icons">search</i></button>
-                        </div>
+                        <h2 className="sidebar__title">comics</h2>
+                        <InputSearch onSearch={this.getData} />
                         <div className="sidebar-creators-container">
-                            {this.state.data.map((creator) => {
-                                return creator.fullName ?
-                                    <div key={creator.id} className="sidebar__filters sidebar__filters--creators">
-                                        <a className="sidebar__link-creator" onClick={(e) => this.findByCreator(e, creator.id)}>
-                                            {creator.fullName}
-                                        </a>
-                                        <a className="sidebar__link-view-creator" onClick={() => this.selectCreator(creator)}><i className="material-icons">account_circle</i></a>
-                                    </div> : ''
-                            })}
+                            { this.state.loading ? 'Loading ...' :
+                                <React.Fragment>
+                                    {this.state.data.map((creator) => {
+                                        return creator.fullName ?
+                                            <div key={creator.id} className="sidebar__filters sidebar__filters--creators">
+                                                <a className="sidebar__link-creator" onClick={(e) => this.findByCreator(e, creator.id)}>
+                                                    {creator.fullName}
+                                                </a>
+                                                <a className="sidebar__link-view-creator" onClick={() => this.selectCreator(creator)}><i className="material-icons">account_circle</i></a>
+                                            </div> : ''
+                                    })}
+                                </React.Fragment>
+                            }
                         </div>
                     </div>
                     <div className="sidebar__item">
