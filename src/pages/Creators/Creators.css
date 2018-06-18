@@ -1,0 +1,51 @@
+.pagination-creators {
+    left: 0;
+    width: 100%;
+}
+
+.input__group--creators {
+    width: 15rem;
+    margin: 0 auto;
+}
+
+.container__cards--creators {
+    height: calc(100vh - 70px - 95.44px);
+}
+
+.card--creator {
+    position: relative;
+}
+
+.card__title--creator {
+    bottom: 0;
+    position: absolute;
+    will-change: top, bottom;
+    transition-property: top, bottom;
+    transition-duration: var(--transition-duration);
+    transition-timing-function: var(--transition-function);
+}
+
+.card__information {
+    top: 2.5rem;
+    width: 100%;
+    padding: .5rem;
+    overflow-y: auto;
+    line-height: 1.4;
+    position: absolute;
+    color: var(--white);
+    height: calc(100% - 2.5rem);
+    background-color: rgba(0,0,0,.65);
+}
+
+/* Active */
+.card--active .card__title--creator {
+    top: 0;
+    bottom: initial;
+    box-shadow: 0 0.65rem 1rem rgba(0,0,0,0.25), 0 .7rem 1.2rem rgba(0,0,0,0.22);
+}
+
+.card--active .card__title--creator:after {
+    top: 2.4rem;
+    right: 1.8rem;
+    transform: skew(-50deg);
+}
