@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from '../../api/api.service';
-import CreatorModal from '../CreatorModal/CreatorModal';
+import ComicModal from '../ComicModal/ComicModal';
 import InputSearch from '../InputSearch/InputSearch';
 
 import './Sidebar.css';
@@ -55,7 +55,6 @@ class Sidebar extends Component {
                 return response.json();
             })
             .then(response => {
-                console.log(response);
                 this.setState({
                     data: response.data.results,
                     attribution: response.attributionText,
@@ -117,7 +116,7 @@ class Sidebar extends Component {
                         <a className="sidebar__link-attribution" href="http://marvel.com" target="blank">{this.state.attribution}</a> <br />
                     </div>
                 </div>
-                <CreatorModal data={this.state.comicSelected} close={this.closeModal}/>
+                <ComicModal data={this.state.comicSelected} close={this.closeModal}/>
             </React.Fragment>
         );
     }
