@@ -17,35 +17,50 @@ class Characters extends Component {
                 offset: 0,
                 total: 0
             },
-            orderBy: 'name',
+            orderBy: '',
+            search: '',
             config: '',
             characterSelected: undefined,
             loading: true
         }
         this.sidebarActions = {
-            creator: this.creatorSelected
+            comic: this.comicSelected,
+            search: this.getData,
+            order: this.getData
         }
     }
 
     componentDidMount() {
-        //ApiService().getData('characters', `orderBy=${this.state.orderBy}&limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}&nameStartsWith=spider`)
-        ApiService().getData('characters', `orderBy=${this.state.orderBy}&limit=${this.state.pagination.perPage}&offset=${this.state.pagination.offset}`)
-            .then(response => {
-                if (response.status !== 200) throw new Error('Error');
-                return response.json();
-            })
-            .then(response => {
-                //console.log(response);
-                this.setState((prevState) => ({
-                    data: response.data.results,
-                    config: response.attributionText,
-                    pagination: {...prevState.pagination, total: response.data.total },
-                    loading: false
-                }));
-            })
-            .catch(err => {
-                console.log('error', err);
-            });
+        this.getData();
+    }
+
+    getData = async (search, orderBy, isOrder) => {
+        await this.setState((prevState) => ({
+            loading: true,
+            search: isOrder ? prevState.search : search,
+            orderBy: orderBy ? '-name' : 'name'
+        }));
+
+        let query = this.state.search ? `&nameStartsWith=${this.state.search}` : '';
+        query += `&orderBy=${this.state.orderBy}&limit=${this.state.pagination.perPage}&offset=${this.state.pagination.offset}`;
+
+        ApiService().getData('characters', query)
+        .then(response => {
+            if (response.status !== 200) throw new Error('Error');
+            return response.json();
+        })
+        .then(response => {
+            //console.log(response);
+            this.setState((prevState) => ({
+                data: response.data.results,
+                config: response.attributionText,
+                pagination: {...prevState.pagination, total: response.data.total },
+                loading: false
+            }));
+        })
+        .catch(err => {
+            console.log('error', err);
+        });
     }
 
     selectedCharacter = (id) => {
@@ -64,7 +79,7 @@ class Characters extends Component {
         console.log(currentPage);
     }
 
-    creatorSelected = (idCreator) => {
+    comicSelected = (idCreator) => {
         console.log(idCreator);
     }
 

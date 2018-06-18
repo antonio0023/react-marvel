@@ -66,12 +66,16 @@ class Sidebar extends Component {
             });
     }
 
+    orderBy = (e) => {
+        this.props.actions.order(null, e.target.checked, true);
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div className="sidebar">
                     <div className="sidebar__item sidebar__item--search">
-                        {/* <InputSearch onSearch={this.searchCreator} /> */}
+                        <InputSearch onSearch={this.props.actions.search} />
                         <div className="select__container">
                             <label htmlFor="perPage">Per page</label>
                             <select name="perPage" id="perPage">
@@ -84,7 +88,7 @@ class Sidebar extends Component {
                         <div className="sidebar__filters">
                             Order by Name
                             <div className="checkbox">
-                                <input type="checkbox" name="name" id="name" />
+                                <input type="checkbox" name="name" id="name" onChange={this.orderBy}/>
                                 <label htmlFor="name">Ascendant</label>
                             </div>
                         </div>
