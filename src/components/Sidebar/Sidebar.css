@@ -85,30 +85,30 @@
 }
 /* Checkbox */
 
-.sidebar__link-creator {
+.sidebar__link-comic {
     font-weight: var(--font-weight-semi-bold);
 }
 
-.sidebar__link-creator:hover,
+.sidebar__link-comic:hover,
 .sidebar__link-attribution:hover {
     text-decoration: underline;
     color: var(--primary-color);
 }
 
-.sidebar__link-creator--active {
+.sidebar__link-comic--active {
     text-decoration: line-through;
     color: var(--primary-color);
 }
 
-.sidebar__link-view-creator:hover {
+.sidebar__link-view-comic:hover {
     color: var(--primary-color);    
 }
 
-.sidebar__filters--creators {
-    align-items: flex-start;
+.sidebar__filters--comic {
+    margin-bottom: .5rem;
 }
 
-.sidebar-creators-container {
+.sidebar-comic-container {
     max-height: calc(100vh - 4.4rem - 75px - 225px);
     overflow-y: auto;
     margin-top: .75rem;

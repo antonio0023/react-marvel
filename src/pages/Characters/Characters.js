@@ -20,6 +20,7 @@ class Characters extends Component {
             orderBy: '',
             search: '',
             config: '',
+            comics: [],
             characterSelected: undefined,
             loading: true
         }
@@ -42,6 +43,7 @@ class Characters extends Component {
         }));
 
         let query = this.state.search ? `&nameStartsWith=${this.state.search}` : '';
+        query += this.state.comics.length ? `&comics=${this.state.comics.join()}` : '';
         query += `&orderBy=${this.state.orderBy}&limit=${this.state.pagination.perPage}&offset=${this.state.pagination.offset}`;
 
         ApiService().getData('characters', query)
@@ -50,7 +52,6 @@ class Characters extends Component {
             return response.json();
         })
         .then(response => {
-            //console.log(response);
             this.setState((prevState) => ({
                 data: response.data.results,
                 config: response.attributionText,
@@ -79,8 +80,17 @@ class Characters extends Component {
         console.log(currentPage);
     }
 
-    comicSelected = (idCreator) => {
-        console.log(idCreator);
+    comicSelected = (idComic, isDeselected) => {
+        if (isDeselected) {
+            this.setState((prevState) => ({
+                comics: prevState.comics.filter(el => el !== idComic)
+            }));
+        } else {
+            this.setState((prevState) => ({
+                comics: prevState.comics.concat(idComic)
+            }));
+        }
+        this.getData();
     }
 
     render() {

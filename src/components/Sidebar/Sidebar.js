@@ -12,7 +12,7 @@ class Sidebar extends Component {
         this.state = {
             data: [],
             attribution: '',
-            creatorSelected: undefined,
+            comicSelected: undefined,
             loading: true
         }
     }
@@ -27,34 +27,35 @@ class Sidebar extends Component {
         this.mainContainer.classList.remove('main-container--sidebar');
     }
 
-    findByCreator = (e, id) => {
-        //console.log(id);
-        this.props.actions.creator(id);
-        e.target.classList.toggle('sidebar__link-creator--active');
+    findByComic = (e, id) => {
+        const currentEle = e.target;
+        this.props.actions.comic(id, currentEle.classList.contains('sidebar__link-comic--active'));
+        currentEle.classList.toggle('sidebar__link-comic--active');
     }
 
-    selectCreator = (creator) => {
+    selectComic = (comic) => {
         this.setState({
-            creatorSelected: creator
+            comicSelected: comic
         });
     }
 
     closeModal = () => {
         this.setState({
-            creatorSelected: undefined
+            comicSelected: undefined
         });
     }
 
     getData = (value) => {
-        const query = value ? `&nameStartsWith=${value}` : '';
+        const query = value ? `&titleStartsWith=${value}` : '';
         this.setState({ loading: true });
 
-        ApiService().getData('creators', `limit=30${query}`)
+        ApiService().getData('comics', `limit=30&format=comic${query}`)
             .then(response => {
                 if (response.status !== 200) throw new Error('Error');
                 return response.json();
             })
             .then(response => {
+                console.log(response);
                 this.setState({
                     data: response.data.results,
                     attribution: response.attributionText,
@@ -93,19 +94,19 @@ class Sidebar extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="sidebar__item sidebar__item--creators">
+                    <div className="sidebar__item">
                         <h2 className="sidebar__title">comics</h2>
                         <InputSearch onSearch={this.getData} />
-                        <div className="sidebar-creators-container">
+                        <div className="sidebar-comic-container">
                             { this.state.loading ? 'Loading ...' :
                                 <React.Fragment>
-                                    {this.state.data.map((creator) => {
-                                        return creator.fullName ?
-                                            <div key={creator.id} className="sidebar__filters sidebar__filters--creators">
-                                                <a className="sidebar__link-creator" onClick={(e) => this.findByCreator(e, creator.id)}>
-                                                    {creator.fullName}
+                                    {this.state.data.map((comic) => {
+                                        return comic.title ?
+                                            <div key={comic.id} className="sidebar__filters sidebar__filters--comic">
+                                                <a className="sidebar__link-comic" onClick={(e) => this.findByComic(e, comic.id)}>
+                                                    {comic.title}
                                                 </a>
-                                                <a className="sidebar__link-view-creator" onClick={() => this.selectCreator(creator)}><i className="material-icons">account_circle</i></a>
+                                                <a className="sidebar__link-view-comic" onClick={() => this.selectComic(comic)}><i className="material-icons">book</i></a>
                                             </div> : ''
                                     })}
                                 </React.Fragment>
@@ -116,7 +117,7 @@ class Sidebar extends Component {
                         <a className="sidebar__link-attribution" href="http://marvel.com" target="blank">{this.state.attribution}</a> <br />
                     </div>
                 </div>
-                <CreatorModal data={this.state.creatorSelected} close={this.closeModal}/>
+                <CreatorModal data={this.state.comicSelected} close={this.closeModal}/>
             </React.Fragment>
         );
     }
