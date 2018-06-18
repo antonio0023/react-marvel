@@ -106,7 +106,7 @@ class Pagination extends Component {
 
     render() {
         return (
-            <div className="pagination">
+            <div className={`pagination ${this.props.className ? this.props.className : ''}`}>
                 <div className="pagination__container">
                     <button className="pagination__button" onClick={this.firstPage}><i className="material-icons">first_page</i></button>
                     <button className="pagination__button" onClick={this.previousPage}><i className="material-icons">chevron_left</i></button>

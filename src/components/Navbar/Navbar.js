@@ -23,7 +23,7 @@ class Navbar extends Component {
                             <img className="navbar__img" src="images/marvel.png" alt="Marvel Logo" />
                         </NavLink>
                         <div>
-                            <NavLink className="navbar__item" activeClassName="navbar__item--active" to="/comics">Comics</NavLink>
+                            <NavLink className="navbar__item" activeClassName="navbar__item--active" to="/creators">Creators</NavLink>
                             <NavLink className="navbar__item" activeClassName="navbar__item--active" to="/series">Series</NavLink>
                         </div>
                     </nav>

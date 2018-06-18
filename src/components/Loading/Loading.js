@@ -12,7 +12,6 @@ class Loading extends Component {
 
     generateRandom = () => {
         const rnd = Math.floor(Math.random() * IMAGES.length);
-        console.log(IMAGES[rnd], rnd);
         return IMAGES[rnd];
     }
 
