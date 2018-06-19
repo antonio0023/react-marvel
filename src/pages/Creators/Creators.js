@@ -52,8 +52,16 @@ class Creators extends Component {
         });
     }
 
-    toggleClassActive = (e) => {
-        document.querySelector('.card--creator').classList.toggle('card--active');
+    toggleClassActive = (id) => {
+        const ele = document.querySelector(`.card--creator[data-id='${id}']`);
+        const eleInfo = ele.querySelector('.card__information');
+        
+        ele.classList.toggle('card--active');
+
+        if (!ele.classList.contains('card--active'))
+            eleInfo.classList.toggle('card__information--collapse')
+        else
+            setTimeout(() => eleInfo.classList.toggle('card__information--collapse'), 270);
     }
     
 
@@ -64,37 +72,29 @@ class Creators extends Component {
                     <React.Fragment>
                         <InputSearch className="input__group--creators"/>
                         <div className="container__cards container__cards--creators">
-                            <div className="card card--creator" onClick={this.toggleClassActive}>
+                            <div className="card card--creator" data-id="20" onClick={() => this.toggleClassActive(20)}>
                                 <img className="card__image" src="http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf/standard_large.jpg" alt="Stan Lee"/>
                                 <h3 className="card__title card__title--creator">Stan Lee</h3>
-
                                 <div className="card__information">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea fuga perferendis nobis fugiat praesentium nihil earum, obcaecati, voluptatum quisquam ratione placeat! Illum mollitia fugiat sapiente sequi? Sapiente eos soluta tenetur.
-                                    Culpa voluptate ex aspernatur voluptatum, aliquam autem eum eaque nulla excepturi dolorem reiciendis modi ab veniam blanditiis amet! Dolorem illo, asperiores blanditiis debitis magni porro nemo exercitationem a quaerat rerum.
-                                    Blanditiis, error. Dolorem dolorum alias magni, ratione quibusdam impedit veniam ut. Ad placeat quasi numquam quos. Deserunt, facilis. Maiores rerum, ullam quo sunt voluptate adipisci. Deleniti, quas harum? Fugit, ex.
-                                    Culpa explicabo, saepe laboriosam praesentium voluptatum voluptatibus nesciunt quis corrupti voluptatem sit doloremque magni earum, incidunt numquam veniam ipsum odio reprehenderit itaque quam ducimus, omnis eos! Libero fugit recusandae eius.
-                                    Deserunt eligendi debitis fuga autem id. Impedit nemo, repellendus aut perspiciatis iure hic eos repudiandae ipsa consectetur unde quod, dignissimos sapiente, quasi maxime nam ducimus ipsum vel ex sunt quaerat?
-                                    {/* <h5>comics</h5>
-                                    <ul className="comic-modal__content-list">
+                                    <h4>comics</h4>
+                                    <ul>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                     </ul>
-                                    <h5>stories</h5>
-                                    <ul className="comic-modal__content-list">
+                                    <h4>stories</h4>
+                                    <ul>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                         <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
                                     </ul>
-                                    <a href="http://marvel.com/">detail</a> */}
+                                    <a className="card-creator__link" href="http://marvel.com/" target="blank">detail</a>
                                 </div>
-                                
                             </div>
-
 
 
                         </div>

@@ -19,33 +19,64 @@
 .card__title--creator {
     bottom: 0;
     position: absolute;
-    will-change: top, bottom;
-    transition-property: top, bottom;
+    will-change: bottom;
+    transition-property: bottom;
     transition-duration: var(--transition-duration);
     transition-timing-function: var(--transition-function);
 }
 
 .card__information {
-    top: 2.5rem;
+    height: 0;
+    opacity: 0;
+    top: 2.4rem;
     width: 100%;
     padding: .5rem;
     overflow-y: auto;
     line-height: 1.4;
     position: absolute;
     color: var(--white);
-    height: calc(100% - 2.5rem);
+    will-change: height;
+    transition-property: height, opacity;
     background-color: rgba(0,0,0,.65);
+    transition-duration: var(--transition-duration);
+    transition-timing-function: var(--transition-function);
+}
+
+.card__information--collapse {
+    opacity: 1;
+    height: calc(100% - 2.4rem);
+}
+
+.card__title--creator:after {
+    top: -2rem;
+    height: 2rem;
+    right: 1.2rem;
+    transition: all var(--transition-duration) var(--transition-function);
+}
+
+.card-creator__link {
+    display: block;
+    width: max-content;
+    margin: .5rem auto;
+    color: var(--black);
+    border-radius: .3rem;
+    padding: .2rem .5rem;
+    text-decoration: none;
+    font-weight: var(--font-weight-semi-bold);
+    background-color: rgba(255, 255, 255, .7);
+}
+
+.card-creator__link:hover {
+    background-color: var(--white);
 }
 
 /* Active */
 .card--active .card__title--creator {
-    top: 0;
-    bottom: initial;
+    bottom: 16rem;
     box-shadow: 0 0.65rem 1rem rgba(0,0,0,0.25), 0 .7rem 1.2rem rgba(0,0,0,0.22);
 }
 
 .card--active .card__title--creator:after {
     top: 2.4rem;
-    right: 1.8rem;
     transform: skew(-50deg);
 }
