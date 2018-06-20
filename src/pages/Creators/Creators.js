@@ -26,12 +26,12 @@ class Creators extends Component {
     }
 
     getData = async (search) => {
-        await this.setState((prevState) => ({
+        await this.setState({
             loading: true,
-            search: search //? search : prevState.search
-        }));
+            search
+        });
 
-        let query = `&nameStartsWith=stan`;//this.state.search ? `&nameStartsWith=${this.state.search}` : '';
+        let query = this.state.search ? `&nameStartsWith=${this.state.search}` : '';
         query += `&orderBy=firstName&limit=${this.state.pagination.perPage}&offset=${this.state.pagination.offset}`;
 
         ApiService().getData('creators', query)
@@ -40,7 +40,7 @@ class Creators extends Component {
             return response.json();
         })
         .then(response => {
-            console.log(response.data.results);
+            //console.log(response.data.results);
             this.setState((prevState) => ({
                 data: response.data.results,
                 pagination: {...prevState.pagination, total: response.data.total },
@@ -68,38 +68,30 @@ class Creators extends Component {
     render() {
         return (
             <div className="container-creators">
-                {this.state.loading ? <Loading /> :
-                    <React.Fragment>
-                        <InputSearch className="input__group--creators"/>
-                        <div className="container__cards container__cards--creators">
-                            <div className="card card--creator" data-id="20" onClick={() => this.toggleClassActive(20)}>
-                                <img className="card__image" src="http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf/standard_large.jpg" alt="Stan Lee"/>
-                                <h3 className="card__title card__title--creator">Stan Lee</h3>
-                                <div className="card__information">
-                                    <h4>comics</h4>
-                                    <ul>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                    </ul>
-                                    <h4>stories</h4>
-                                    <ul>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe veritatis nesciunt quod dolores qui.</li>
-                                    </ul>
-                                    <a className="card-creator__link" href="http://marvel.com/" target="blank">detail</a>
+                <InputSearch className="input__group--creators" onSearch={this.getData}/>
+                <div className="container__cards container__cards--creators">
+                    {this.state.loading ? <Loading /> :
+                        <React.Fragment>
+                            {this.state.data.map(creator =>
+                                <div key={creator.id} className="card card--creator" data-id={creator.id} onClick={() => this.toggleClassActive(creator.id)}>
+                                    <img className="card__image" src={`${creator.thumbnail.path}/standard_large.${creator.thumbnail.extension}`} alt={creator.fullName}/>
+                                    <h3 className="card__title card__title--creator">{creator.fullName ? creator.fullName : 'NAMELESS'}</h3>
+                                    <div className="card__information">
+                                        <h4>comics</h4>
+                                        <ul>
+                                            {creator.comics.items.map((el, index) => <li key={index}>{el.name}</li>)}
+                                        </ul>
+                                        <h4>stories</h4>
+                                        <ul>
+                                            {creator.stories.items.map((el, index) => <li key={index}>{el.name}</li>)}
+                                        </ul>
+                                        <a className="card-creator__link" href={creator.urls[0].url} target="blank">{creator.urls[0].type}</a>
+                                    </div>
                                 </div>
-                            </div>
-
-
-                        </div>
-                    </React.Fragment>
-                }
+                            )}
+                        </React.Fragment>
+                    }
+                </div>
                 <Pagination className="pagination-creators" pageSelected={this.pageSelected} data={this.state.pagination}/>
             </div>
         );
