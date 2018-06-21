@@ -1,0 +1,53 @@
+.card-tv {
+    border: .8rem solid var(--black);
+    border-bottom-width: 3rem;
+    border-bottom-color: red;
+    position: relative;
+    line-height: 0;
+}
+
+.card-tv:after {
+    content: '';
+    position: absolute;
+    border-bottom: 2rem solid #CDDC39;
+    border-left: 2.5rem solid transparent;
+    border-right: 2.5rem solid transparent;
+    height: 0;
+    width: 7rem;
+    bottom: -10rem;
+    /* box-shadow: var(--box-shadow); */
+}
+
+.card-tv__info {
+    position: absolute;
+    color: var(--white);
+    width: 100%;
+    border: 1pt solid;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    /* grid-template-columns: minmax(min-content, 1fr) auto; */
+    align-items: center;
+    bottom: -3rem;
+    height: 3rem;
+    /* overflow-y: auto;
+    max-height: 3rem; */
+}
+
+.card-tv__title {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.card-tv__button {
+    padding: 0;
+    border: none;
+    line-height: 0;
+    color: var(--white);
+    background-color: transparent;
+    font-weight: var(--font-weight-bold);
+}
+
+.card-tv__button:hover {
+    color: #39ff14;
+    text-shadow: 0.05rem 0.05rem 0.5rem rgba( 57, 255, 20, .8);
+}
