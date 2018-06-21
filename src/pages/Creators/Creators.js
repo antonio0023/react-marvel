@@ -68,7 +68,7 @@ class Creators extends Component {
     render() {
         return (
             <div className="container-creators">
-                <InputSearch className="input__group--creators" onSearch={this.getData}/>
+                <InputSearch className="input__group--creators" placeHolder="Name starts with" onSearch={this.getData}/>
                 <div className="container__cards container__cards--creators">
                     {this.state.loading ? <Loading /> :
                         <React.Fragment>

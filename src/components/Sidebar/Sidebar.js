@@ -75,7 +75,7 @@ class Sidebar extends Component {
             <React.Fragment>
                 <div className="sidebar">
                     <div className="sidebar__item sidebar__item--search">
-                        <InputSearch onSearch={this.props.actions.search} />
+                        <InputSearch onSearch={this.props.actions.search} placeHolder="Name starts with"/>
                         <div className="select__container">
                             <label htmlFor="perPage">Per page</label>
                             <select name="perPage" id="perPage">
@@ -95,7 +95,7 @@ class Sidebar extends Component {
                     </div>
                     <div className="sidebar__item">
                         <h2 className="sidebar__title">comics</h2>
-                        <InputSearch onSearch={this.getData} />
+                        <InputSearch onSearch={this.getData} placeHolder="Title starts with"/>
                         <div className="sidebar-comic-container">
                             { this.state.loading ? 'Loading ...' :
                                 <React.Fragment>

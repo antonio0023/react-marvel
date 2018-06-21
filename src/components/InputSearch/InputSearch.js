@@ -11,7 +11,7 @@ export default class InputSearch extends Component {
     render() {
         return (
             <div className={`input__group ${this.props.className ? this.props.className : ''}`}>
-                <input onKeyDown={this.searchValue} type="text" placeholder="Search by name" ref="input"/>
+                <input onKeyDown={this.searchValue} type="text" placeholder={this.props.placeHolder} ref="input"/>
                 <button onClick={(e) => this.searchValue(e, true)} className="button__search"><i className="material-icons">search</i></button>
             </div>
         )
