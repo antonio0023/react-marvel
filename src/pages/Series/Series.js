@@ -12,7 +12,7 @@ class Series extends Component {
         this.state = {
             data: [],
             pagination: {
-                perPage: 1,//48,
+                perPage: 48,
                 offset: 0,
                 total: 0
             },
@@ -52,37 +52,34 @@ class Series extends Component {
         });
     }
 
+    toggleTurnTV = (id) => {
+        console.log(id);
+    }
+
     render() {
         return (
             <div className="container-creators">
                 <InputSearch className="input__group--creators" placeHolder="Title starts with" onSearch={this.getData}/>
-                <div className="container__cards container__cards--creators">
+                <div className="container__cards container__cards--series">
                     {this.state.loading ? <Loading /> :
                         <React.Fragment>
-                            <div className="card-tv">
-                                <img className="card__image" src="https://i.annihil.us/u/prod/marvel/i/mg/9/e0/575ef296bfd40/standard_fantastic.jpg" alt="Spider-man"/>
-                                <div className="card-tv__info">
-                                    <h4 className="card-tv__title">The Amazing Spider-Man</h4>
-                                    <button className="card-tv__button"><i className="material-icons">power_settings_new</i></button>
-                                </div>
-                            </div>
-                            {/* {this.state.data.map(creator =>
-                                <div key={creator.id} className="card card--creator" data-id={creator.id} onClick={() => this.toggleClassActive(creator.id)}>
-                                    <img className="card__image" src={`${creator.thumbnail.path}/standard_large.${creator.thumbnail.extension}`} alt={creator.fullName}/>
-                                    <h3 className="card__title card__title--creator">{creator.fullName ? creator.fullName : 'NAMELESS'}</h3>
-                                    <div className="card__information">
-                                        <h4>comics</h4>
-                                        <ul>
-                                            {creator.comics.items.map((el, index) => <li key={index}>{el.name}</li>)}
-                                        </ul>
-                                        <h4>stories</h4>
-                                        <ul>
-                                            {creator.stories.items.map((el, index) => <li key={index}>{el.name}</li>)}
-                                        </ul>
-                                        <a className="card-creator__link" href={creator.urls[0].url} target="blank">{creator.urls[0].type}</a>
+                            {this.state.data.map(serie =>
+                                <div key={serie.id} className="card-device" data-id={serie.id}>
+                                    <img className="card__image" src="https://i.annihil.us/u/prod/marvel/i/mg/9/e0/575ef296bfd40/standard_fantastic.jpg" alt="Spider-man"/>
+                                    <div className="card__content-wrapper">
+                                        <div className="card-device__content">
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium in eum esse earum similique dolorum quae ipsam corrupti nisi aperiam, sed, alias iste tempora nulla aliquam molestiae repellat rem ipsa?
+                                            Dignissimos officiis impedit in, veniam non eius. Mollitia exercitationem commodi similique, dolores animi voluptates. Culpa nostrum, nulla dicta accusantium earum nisi tempora perferendis officiis, voluptas minima, autem odit consectetur tenetur.
+                                            Possimus magnam unde iure, voluptas eligendi veritatis. Harum quas, ex id magni odio itaque modi temporibus atque quia fuga magnam nobis tempora quis. Aliquam eligendi non iusto, voluptates excepturi suscipit.
+                                            Dicta dolorem quis cum, obcaecati optio cumque quibusdam sapiente quam autem quia at quisquam, minus culpa atque earum facere placeat sunt incidunt itaque repudiandae veniam? Recusandae iusto laboriosam tempore ab.
+                                        </div>
+                                    </div>
+                                    <div className="card-device__info">
+                                        <h4 className="card-device__title">The Amazing Spider-Man</h4>
+                                        <button className="card-device__button"><i className="material-icons">power_settings_new</i></button>
                                     </div>
                                 </div>
-                            )} */}
+                            )}
                         </React.Fragment>
                     }
                 </div>
