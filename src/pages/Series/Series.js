@@ -40,7 +40,6 @@ class Series extends Component {
             return response.json();
         })
         .then(response => {
-            console.log(response.data.results);
             this.setState((prevState) => ({
                 data: response.data.results,
                 pagination: {...prevState.pagination, total: response.data.total },
@@ -52,8 +51,19 @@ class Series extends Component {
         });
     }
 
-    toggleTurnTV = (id) => {
-        console.log(id);
+    toggleTurn = (id) => {
+        document.querySelector(`.card-device[data-id='${id}']`).classList.toggle('card-device--turn-on');
+    }
+
+    parseCreators = (data) => {
+        const res = data.reduce((vp, vc) => {
+            vp[vc.role] = vp.hasOwnProperty(vc.role) ? vp[vc.role].concat(vc.name) : [vc.name];
+            return vp;
+        }, {});
+        const dataRender = Object.keys(res).map((el, index) =>
+            <h5 key={index} className="fw-normal text-capitalize pl-1"><span className="emphasize text-white">{el}:</span> {res[el].join()}</h5>
+        );
+        return dataRender;
     }
 
     render() {
@@ -65,18 +75,23 @@ class Series extends Component {
                         <React.Fragment>
                             {this.state.data.map(serie =>
                                 <div key={serie.id} className="card-device" data-id={serie.id}>
-                                    <img className="card__image" src="https://i.annihil.us/u/prod/marvel/i/mg/9/e0/575ef296bfd40/standard_fantastic.jpg" alt="Spider-man"/>
+                                    <img className="card__image" src={`${serie.thumbnail.path}/standard_fantastic.${serie.thumbnail.extension}`} alt={serie.title}/>
                                     <div className="card__content-wrapper">
                                         <div className="card-device__content">
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium in eum esse earum similique dolorum quae ipsam corrupti nisi aperiam, sed, alias iste tempora nulla aliquam molestiae repellat rem ipsa?
-                                            Dignissimos officiis impedit in, veniam non eius. Mollitia exercitationem commodi similique, dolores animi voluptates. Culpa nostrum, nulla dicta accusantium earum nisi tempora perferendis officiis, voluptas minima, autem odit consectetur tenetur.
-                                            Possimus magnam unde iure, voluptas eligendi veritatis. Harum quas, ex id magni odio itaque modi temporibus atque quia fuga magnam nobis tempora quis. Aliquam eligendi non iusto, voluptates excepturi suscipit.
-                                            Dicta dolorem quis cum, obcaecati optio cumque quibusdam sapiente quam autem quia at quisquam, minus culpa atque earum facere placeat sunt incidunt itaque repudiandae veniam? Recusandae iusto laboriosam tempore ab.
+                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Published: </span>{serie.startYear}</h5>
+                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Rating: </span>{serie.rated ? serie.rated : 'Unclassified'}</h5>
+                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Type: </span> {serie.type}</h5>
+                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">End year: </span> {serie.endYear}</h5>
+                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Creators</span></h5>
+                                            {this.parseCreators(serie.creators.items)}
+                                            <h5 className="fw-normal text-capitalize mt-1"><span className="emphasize text-white">Description</span></h5>
+                                            {serie.description ? serie.description : 'No Data'}
+                                            <a className="card-creator__link" href={serie.urls[0].url} target="blank">{serie.urls[0].type}</a>
                                         </div>
                                     </div>
                                     <div className="card-device__info">
-                                        <h4 className="card-device__title">The Amazing Spider-Man</h4>
-                                        <button className="card-device__button"><i className="material-icons">power_settings_new</i></button>
+                                        <h4 className="card-device__title">{serie.title}</h4>
+                                        <button className="card-device__button" onClick={() => this.toggleTurn(serie.id)}><i className="material-icons">power_settings_new</i></button>
                                     </div>
                                 </div>
                             )}
