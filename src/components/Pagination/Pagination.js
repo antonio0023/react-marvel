@@ -7,9 +7,15 @@ class Pagination extends Component {
         super(props);
         this.state = {
             start: 1,
-            end: 5,
+            end: undefined,
             current: 1
         }
+    }
+
+    componentDidMount() {        
+        this.setState({
+            end: this.maxPaginationShow()
+        });
     }
 
     getNumberPage = () => {
@@ -53,26 +59,28 @@ class Pagination extends Component {
             this.setState({ current, start, end });
 
             const page = ((current - 1) * this.props.data.perPage) + 1;
-            this.props.pageSelected(page);
+            this.props.pageSelected(page === 1 ? 0 : page);
         }
     }
 
     specificPage = (numberPage) => {
-        this.setState({
-            current: numberPage
-        });
-
-        /* const end = this.state.end + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
-        const start = this.state.start + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
-
-        this.setState({
-            current: numberPage,
-            start: prevState.start + 1,
-            end
-        }); */
-
-        const currentPage = ((numberPage - 1) * this.props.data.perPage) + 1;
-        this.props.pageSelected(currentPage === 1 ? 0 : currentPage);
+        if (this.state.current !== numberPage) {
+            this.setState({
+                current: numberPage
+            });
+    
+            /* const end = this.state.end + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
+            const start = this.state.start + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
+    
+            this.setState({
+                current: numberPage,
+                start: prevState.start + 1,
+                end
+            }); */
+    
+            const currentPage = ((numberPage - 1) * this.props.data.perPage) + 1;
+            this.props.pageSelected(currentPage === 1 ? 0 : currentPage);
+        }
     }
 
     lastPage = () => {

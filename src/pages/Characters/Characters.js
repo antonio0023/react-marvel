@@ -77,7 +77,7 @@ class Characters extends Component {
     }
 
     pageSelected = (currentPage) => {
-        console.log(currentPage);
+        console.log('offset', currentPage);
     }
 
     comicSelected = (idComic, isDeselected) => {
@@ -94,6 +94,12 @@ class Characters extends Component {
     }
 
     render() {
+        const paginationAux = {
+            perPage: 100,
+            offset: 0,
+            total: 1491
+        };
+
         return (
             <div className="pos_relative">
                 <Sidebar actions={this.sidebarActions}/>
@@ -110,7 +116,8 @@ class Characters extends Component {
                     }
                 </div>
                 <CharacterInfo data={this.state.characterSelected} close={this.clearSelectedCharacter}/>
-                <Pagination pageSelected={this.pageSelected} data={this.state.pagination}/>
+                <Pagination pageSelected={this.pageSelected} data={paginationAux}/>
+                {/* <Pagination pageSelected={this.pageSelected} data={this.state.pagination}/> */}
             </div>
         );
     }
