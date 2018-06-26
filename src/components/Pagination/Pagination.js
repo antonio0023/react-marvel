@@ -10,6 +10,7 @@ class Pagination extends Component {
             end: undefined,
             current: 1
         }
+        this.maxPagesToShow = 5;
     }
 
     componentDidMount() {        
@@ -25,16 +26,18 @@ class Pagination extends Component {
 
     maxPaginationShow = () => {
         const numPage = this.getNumberPage();
-        return numPage > 5 ? 5 : numPage;
+        return numPage > this.maxPagesToShow ? this.maxPagesToShow : numPage;
     }
 
     firstPage = () => {
-        this.setState({
-            current: 1,
-            start: 1,
-            end: this.maxPaginationShow()
-        });
-        this.props.pageSelected(0);
+        if (this.state.current !== 1) {
+            this.setState({
+                current: 1,
+                start: 1,
+                end: this.maxPaginationShow()
+            });
+            this.props.pageSelected(0);
+        }
     }
 
     nextPage = () => {
@@ -65,18 +68,15 @@ class Pagination extends Component {
 
     specificPage = (numberPage) => {
         if (this.state.current !== numberPage) {
-            this.setState({
-                current: numberPage
-            });
-    
-            /* const end = this.state.end + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
-            const start = this.state.start + 1 > this.getNumberPage() ? this.state.end : this.state.end + 1;
-    
+            const maxPages = this.getNumberPage();
+            const lastItem = numberPage + this.maxPagesToShow;
+            const end = lastItem > maxPages ? maxPages : lastItem;
+            const start = end - this.maxPagesToShow > 0 ? end - this.maxPagesToShow : this.state.start;
             this.setState({
                 current: numberPage,
-                start: prevState.start + 1,
+                start,
                 end
-            }); */
+            });
     
             const currentPage = ((numberPage - 1) * this.props.data.perPage) + 1;
             this.props.pageSelected(currentPage === 1 ? 0 : currentPage);
@@ -85,15 +85,17 @@ class Pagination extends Component {
 
     lastPage = () => {
         const numPage = this.getNumberPage();
-        
-        this.setState({
-            current: numPage,
-            start: this.maxPaginationShow() === numPage ? 1 : numPage - 5,
-            end: numPage
-        });
 
-        const currentPage = ((numPage - 1) * this.props.data.perPage) + 1;
-        this.props.pageSelected(currentPage);
+        if (this.state.current !== numPage) {
+            this.setState({
+                current: numPage,
+                start: this.maxPaginationShow() === numPage ? 1 : numPage - this.maxPagesToShow,
+                end: numPage
+            });
+
+            const currentPage = ((numPage - 1) * this.props.data.perPage) + 1;
+            this.props.pageSelected(currentPage);
+        }
     }
 
     drawButtons = () => {
