@@ -3,6 +3,7 @@ import Loading from '../../components/Loading/Loading';
 import ApiService from '../../api/api.service';
 import InputSearch from '../../components/InputSearch/InputSearch';
 import Pagination from '../../components/Pagination/Pagination';
+import Notifications from '../../components/Notifications/Notifications';
 import './Creators.css';
 
 class Creators extends Component {
@@ -17,7 +18,8 @@ class Creators extends Component {
                 total: 0
             },
             search: '',
-            loading: true
+            loading: true,
+            error: false
         }
     }
 
@@ -40,7 +42,6 @@ class Creators extends Component {
             return response.json();
         })
         .then(response => {
-            //console.log(response.data.results);
             this.setState((prevState) => ({
                 data: response.data.results,
                 pagination: {...prevState.pagination, total: response.data.total },
@@ -49,6 +50,10 @@ class Creators extends Component {
         })
         .catch(err => {
             console.log('error', err);
+            this.setState({
+                error: true,
+                loading: false
+            });
         });
     }
 
@@ -63,6 +68,11 @@ class Creators extends Component {
         else
             setTimeout(() => eleInfo.classList.toggle('card__information--collapse'), 270);
     }
+
+    pageSelected = (currentPage) => {
+        console.log('current page', currentPage);
+        console.log('last Item', currentPage + (this.state.pagination.perPage - 1));
+    }
     
 
     render() {
@@ -72,23 +82,31 @@ class Creators extends Component {
                 <div className="container__cards container__cards--creators">
                     {this.state.loading ? <Loading /> :
                         <React.Fragment>
-                            {this.state.data.map(creator =>
-                                <div key={creator.id} className="card card--creator" data-id={creator.id} onClick={() => this.toggleClassActive(creator.id)}>
-                                    <img className="card__image" src={`${creator.thumbnail.path}/standard_large.${creator.thumbnail.extension}`} alt={creator.fullName}/>
-                                    <h3 className="card__title card__title--creator">{creator.fullName ? creator.fullName : 'NAMELESS'}</h3>
-                                    <div className="card__information">
-                                        <h4>comics</h4>
-                                        <ul>
-                                            {creator.comics.items.map((el, index) => <li key={index}>{el.name}</li>)}
-                                        </ul>
-                                        <h4>stories</h4>
-                                        <ul>
-                                            {creator.stories.items.map((el, index) => <li key={index}>{el.name}</li>)}
-                                        </ul>
-                                        <a className="card-creator__link" href={creator.urls[0].url} target="blank">{creator.urls[0].type}</a>
-                                    </div>
-                                </div>
-                            )}
+                            {this.state.error ? <Notifications error={true}/> :
+                                <React.Fragment>
+                                    {this.state.data.length ?
+                                        <React.Fragment>
+                                            {this.state.data.map(creator =>
+                                                <div key={creator.id} className="card card--creator" data-id={creator.id} onClick={() => this.toggleClassActive(creator.id)}>
+                                                    <img className="card__image" src={`${creator.thumbnail.path}/standard_large.${creator.thumbnail.extension}`} alt={creator.fullName}/>
+                                                    <h3 className="card__title card__title--creator">{creator.fullName ? creator.fullName : 'NAMELESS'}</h3>
+                                                    <div className="card__information">
+                                                        <h4>comics</h4>
+                                                        <ul>
+                                                            {creator.comics.items.map((el, index) => <li key={index}>{el.name}</li>)}
+                                                        </ul>
+                                                        <h4>stories</h4>
+                                                        <ul>
+                                                            {creator.stories.items.map((el, index) => <li key={index}>{el.name}</li>)}
+                                                        </ul>
+                                                        <a className="card-creator__link" href={creator.urls[0].url} target="blank">{creator.urls[0].type}</a>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </React.Fragment> : <Notifications />
+                                    }
+                                </React.Fragment>
+                            }
                         </React.Fragment>
                     }
                 </div>
