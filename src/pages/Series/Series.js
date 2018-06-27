@@ -3,6 +3,7 @@ import Loading from '../../components/Loading/Loading';
 import ApiService from '../../api/api.service';
 import InputSearch from '../../components/InputSearch/InputSearch';
 import Pagination from '../../components/Pagination/Pagination';
+import Notifications from '../../components/Notifications/Notifications';
 import './Series.css';
 
 class Series extends Component {
@@ -17,7 +18,8 @@ class Series extends Component {
                 total: 0
             },
             search: '',
-            loading: true
+            loading: true,
+            error: false
         }
     }
 
@@ -48,6 +50,10 @@ class Series extends Component {
         })
         .catch(err => {
             console.log('error', err);
+            this.setState({
+                error: true,
+                loading: false
+            });
         });
     }
 
@@ -73,28 +79,36 @@ class Series extends Component {
                 <div className="container__cards container__cards--series">
                     {this.state.loading ? <Loading /> :
                         <React.Fragment>
-                            {this.state.data.map(serie =>
-                                <div key={serie.id} className="card-device" data-id={serie.id}>
-                                    <img className="card__image" src={`${serie.thumbnail.path}/standard_fantastic.${serie.thumbnail.extension}`} alt={serie.title}/>
-                                    <div className="card__content-wrapper">
-                                        <div className="card-device__content">
-                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Published: </span>{serie.startYear}</h5>
-                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Rating: </span>{serie.rated ? serie.rated : 'Unclassified'}</h5>
-                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Type: </span> {serie.type}</h5>
-                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">End year: </span> {serie.endYear}</h5>
-                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Creators</span></h5>
-                                            {this.parseCreators(serie.creators.items)}
-                                            <h5 className="fw-normal text-capitalize mt-1"><span className="emphasize text-white">Description</span></h5>
-                                            {serie.description ? serie.description : 'No Data'}
-                                            <a className="card-creator__link" href={serie.urls[0].url} target="blank">{serie.urls[0].type}</a>
-                                        </div>
-                                    </div>
-                                    <div className="card-device__info">
-                                        <h4 className="card-device__title">{serie.title}</h4>
-                                        <button className="card-device__button" onClick={() => this.toggleTurn(serie.id)}><i className="material-icons">power_settings_new</i></button>
-                                    </div>
-                                </div>
-                            )}
+                            {this.state.error ? <Notifications error={true}/> :
+                                <React.Fragment>
+                                    {this.state.data.length ?
+                                        <React.Fragment>
+                                            {this.state.data.map(serie =>
+                                                <div key={serie.id} className="card-device" data-id={serie.id}>
+                                                    <img className="card__image" src={`${serie.thumbnail.path}/standard_fantastic.${serie.thumbnail.extension}`} alt={serie.title}/>
+                                                    <div className="card__content-wrapper">
+                                                        <div className="card-device__content">
+                                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Published: </span>{serie.startYear}</h5>
+                                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Rating: </span>{serie.rated ? serie.rated : 'Unclassified'}</h5>
+                                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Type: </span> {serie.type}</h5>
+                                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">End year: </span> {serie.endYear}</h5>
+                                                            <h5 className="fw-normal text-capitalize"><span className="emphasize text-white">Creators</span></h5>
+                                                            {this.parseCreators(serie.creators.items)}
+                                                            <h5 className="fw-normal text-capitalize mt-1"><span className="emphasize text-white">Description</span></h5>
+                                                            {serie.description ? serie.description : 'No Data'}
+                                                            <a className="card-creator__link" href={serie.urls[0].url} target="blank">{serie.urls[0].type}</a>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-device__info">
+                                                        <h4 className="card-device__title">{serie.title}</h4>
+                                                        <button className="card-device__button" onClick={() => this.toggleTurn(serie.id)}><i className="material-icons">power_settings_new</i></button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </React.Fragment> : <Notifications />
+                                    }
+                                </React.Fragment>
+                            }
                         </React.Fragment>
                     }
                 </div>

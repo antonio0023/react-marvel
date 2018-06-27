@@ -5,6 +5,7 @@ import CharacterInfo from '../../components/CharacterInfo/CharacterInfo';
 import Pagination from '../../components/Pagination/Pagination';
 import Card from '../../components/Card/Card';
 import Loading from '../../components/Loading/Loading';
+import Notifications from '../../components/Notifications/Notifications';
 
 class Characters extends Component {
 
@@ -12,17 +13,19 @@ class Characters extends Component {
         super(props);
         this.state = {
             data: [],
+            visualData: [],
             pagination: {
                 perPage: 12,
                 offset: 0,
-                total: 0
+                total: 0,
+                maxItem: 100
             },
             orderBy: '',
             search: '',
-            config: '',
             comics: [],
             characterSelected: undefined,
-            loading: true
+            loading: true,
+            error: false
         }
         this.sidebarActions = {
             comic: this.comicSelected,
@@ -54,13 +57,17 @@ class Characters extends Component {
         .then(response => {
             this.setState((prevState) => ({
                 data: response.data.results,
-                config: response.attributionText,
+                //visualData: response.data.results.slice(prevState.pagination.offset, prevState.pagination.perPage),
                 pagination: {...prevState.pagination, total: response.data.total },
                 loading: false
             }));
         })
         .catch(err => {
             console.log('error', err);
+            this.setState({
+                error: true,
+                loading: false
+            });
         });
     }
 
@@ -77,6 +84,9 @@ class Characters extends Component {
     }
 
     pageSelected = (currentPage) => {
+        /* this.setState((prevState) => ({
+            pagination: {...prevState.pagination, offset: currentPage },
+        }), () => this.getData()); */
         console.log('offset', currentPage);
     }
 
@@ -94,30 +104,31 @@ class Characters extends Component {
     }
 
     render() {
-        const paginationAux = {
-            perPage: 100,
-            offset: 0,
-            total: 1491
-        };
-
         return (
             <div className="pos_relative">
                 <Sidebar actions={this.sidebarActions}/>
                 <div className="container__cards">
                     {this.state.loading ? <Loading /> :
                         <React.Fragment>
-                            {this.state.data.map((character) => {
-                                return <Card key={character.id}
-                                            selectedCharacter={this.selectedCharacter}
-                                            data={{id: character.id, name: character.name, thumbnail: character.thumbnail}} />
-                                })
+                            {this.state.error ? <Notifications error={true}/> :
+                                <React.Fragment>
+                                    {this.state.data.length ?
+                                        <React.Fragment>
+                                            {this.state.data.map((character) => {
+                                                return <Card key={character.id}
+                                                            selectedCharacter={this.selectedCharacter}
+                                                            data={{id: character.id, name: character.name, thumbnail: character.thumbnail}} />
+                                                })
+                                            }
+                                        </React.Fragment> : <Notifications />
+                                    }
+                                </React.Fragment>
                             }
                         </React.Fragment>
                     }
                 </div>
                 <CharacterInfo data={this.state.characterSelected} close={this.clearSelectedCharacter}/>
-                <Pagination pageSelected={this.pageSelected} data={paginationAux}/>
-                {/* <Pagination pageSelected={this.pageSelected} data={this.state.pagination}/> */}
+                <Pagination pageSelected={this.pageSelected} data={this.state.pagination}/>
             </div>
         );
     }

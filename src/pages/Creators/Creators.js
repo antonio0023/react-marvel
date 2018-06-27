@@ -44,6 +44,7 @@ class Creators extends Component {
         .then(response => {
             this.setState((prevState) => ({
                 data: response.data.results,
+                //visualData: new Array(response.data.total),
                 pagination: {...prevState.pagination, total: response.data.total },
                 loading: false
             }));
