@@ -7,16 +7,10 @@ class Pagination extends Component {
         super(props);
         this.state = {
             start: 1,
-            end: undefined,
+            end: 5,
             current: 1
         }
         this.maxPagesToShow = 5;
-    }
-
-    componentDidMount() {        
-        this.setState({
-            end: this.maxPaginationShow()
-        });
     }
 
     getNumberPage = () => {

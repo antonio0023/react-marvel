@@ -13,7 +13,7 @@ class Creators extends Component {
         this.state = {
             data: [],
             pagination: {
-                perPage: 12,
+                perPage: 48,
                 offset: 0,
                 total: 0
             },
@@ -44,8 +44,7 @@ class Creators extends Component {
         .then(response => {
             this.setState((prevState) => ({
                 data: response.data.results,
-                //visualData: new Array(response.data.total),
-                pagination: {...prevState.pagination, total: response.data.total },
+                pagination: {...prevState.pagination, total: response.data.total, offset: this.state.search ? 0 : prevState.pagination.offset },
                 loading: false
             }));
         })
@@ -72,7 +71,10 @@ class Creators extends Component {
 
     pageSelected = (currentPage) => {
         console.log('current page', currentPage);
-        console.log('last Item', currentPage + (this.state.pagination.perPage - 1));
+        this.setState((prevState) => ({
+            pagination: {...prevState.pagination, offset: currentPage }
+        }));
+        this.getData(this.state.search);
     }
     
 
