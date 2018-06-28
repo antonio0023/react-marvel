@@ -67,7 +67,11 @@ class Sidebar extends Component {
     }
 
     orderBy = (e) => {
-        this.props.actions.order(null, e.target.checked, true);
+        this.props.actions.order(e.target.checked);
+    }
+
+    changePagination = (e) => {
+        this.props.actions.changePagination(Number(e.target.value));
     }
 
     render() {
@@ -78,18 +82,18 @@ class Sidebar extends Component {
                         <InputSearch onSearch={this.props.actions.search} placeHolder="Name starts with"/>
                         <div className="select__container">
                             <label htmlFor="perPage">Per page</label>
-                            <select name="perPage" id="perPage">
-                                <option value="10">12</option>
-                                <option value="10">24</option>
-                                <option value="10">36</option>
-                                <option value="10">48</option>
+                            <select name="perPage" id="perPage" onChange={this.changePagination}>
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                                <option value="48">48</option>
                             </select>
                         </div>
                         <div className="sidebar__filters">
                             Order by Name
                             <div className="checkbox">
                                 <input type="checkbox" name="name" id="name" onChange={this.orderBy}/>
-                                <label htmlFor="name">Ascendant</label>
+                                <label htmlFor="name">Descending</label>
                             </div>
                         </div>
                     </div>

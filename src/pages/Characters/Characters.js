@@ -13,14 +13,12 @@ class Characters extends Component {
         super(props);
         this.state = {
             data: [],
-            visualData: [],
             pagination: {
                 perPage: 12,
                 offset: 0,
-                total: 0,
-                maxItem: 100
+                total: 0
             },
-            orderBy: '',
+            orderBy: 'name',
             search: '',
             comics: [],
             characterSelected: undefined,
@@ -29,8 +27,9 @@ class Characters extends Component {
         }
         this.sidebarActions = {
             comic: this.comicSelected,
-            search: this.getData,
-            order: this.getData
+            search: this.searchRegister,
+            order: this.orderBy,
+            changePagination: this.changePagination
         }
     }
 
@@ -38,12 +37,8 @@ class Characters extends Component {
         this.getData();
     }
 
-    getData = async (search, orderBy, isOrder) => {
-        await this.setState((prevState) => ({
-            loading: true,
-            search: isOrder ? prevState.search : search,
-            orderBy: orderBy ? '-name' : 'name'
-        }));
+    getData = async () => {
+        await this.setState({ loading: true });
 
         let query = this.state.search ? `&nameStartsWith=${this.state.search}` : '';
         query += this.state.comics.length ? `&comics=${this.state.comics.join()}` : '';
@@ -57,7 +52,6 @@ class Characters extends Component {
         .then(response => {
             this.setState((prevState) => ({
                 data: response.data.results,
-                //visualData: response.data.results.slice(prevState.pagination.offset, prevState.pagination.perPage),
                 pagination: {...prevState.pagination, total: response.data.total },
                 loading: false
             }));
@@ -84,10 +78,28 @@ class Characters extends Component {
     }
 
     pageSelected = (currentPage) => {
-        /* this.setState((prevState) => ({
-            pagination: {...prevState.pagination, offset: currentPage },
-        }), () => this.getData()); */
-        console.log('offset', currentPage);
+        this.setState((prevState) => ({
+            pagination: {...prevState.pagination, offset: currentPage }
+        }), () => this.getData());
+    }
+
+    changePagination = (perPage) => {
+        this.setState({
+            pagination: { perPage, offset: 0, total: 0 }
+        }, () => this.getData());
+    }
+
+    searchRegister = (search) => {
+        this.setState((prevState) => ({
+            pagination: {...prevState.pagination, offset: 0, total: 0 },
+            search
+        }), () => this.getData());
+    }
+
+    orderBy = (order) => {
+        this.setState({
+            orderBy: order ? '-name' : 'name'
+        }, () => this.getData());
     }
 
     comicSelected = (idComic, isDeselected) => {
