@@ -70,18 +70,23 @@ class Creators extends Component {
     }
 
     pageSelected = (currentPage) => {
-        console.log('current page', currentPage);
         this.setState((prevState) => ({
             pagination: {...prevState.pagination, offset: currentPage }
         }));
         this.getData(this.state.search);
+    }
+
+    searchRegister = (search) => {
+        this.setState((prevState) => ({
+            pagination: {...prevState.pagination, offset: 0, total: 0 }
+        }), () => this.getData(search));
     }
     
 
     render() {
         return (
             <div className="container-creators">
-                <InputSearch className="input__group--creators" placeHolder="Name starts with" onSearch={this.getData}/>
+                <InputSearch className="input__group--creators" placeHolder="Name starts with" onSearch={this.searchRegister}/>
                 <div className="container__cards container__cards--creators">
                     {this.state.loading ? <Loading /> :
                         <React.Fragment>

@@ -13,7 +13,7 @@ class Series extends Component {
         this.state = {
             data: [],
             pagination: {
-                perPage: 48,
+                perPage: 12,
                 offset: 0,
                 total: 0
             },
@@ -72,10 +72,23 @@ class Series extends Component {
         return dataRender;
     }
 
+    pageSelected = (currentPage) => {
+        this.setState((prevState) => ({
+            pagination: {...prevState.pagination, offset: currentPage }
+        }));
+        this.getData(this.state.search);
+    }
+
+    searchRegister = (search) => {
+        this.setState((prevState) => ({
+            pagination: {...prevState.pagination, offset: 0, total: 0 }
+        }), () => this.getData(search));
+    }
+
     render() {
         return (
             <div className="container-creators">
-                <InputSearch className="input__group--creators" placeHolder="Title starts with" onSearch={this.getData}/>
+                <InputSearch className="input__group--creators" placeHolder="Title starts with" onSearch={this.searchRegister}/>
                 <div className="container__cards container__cards--series">
                     {this.state.loading ? <Loading /> :
                         <React.Fragment>

@@ -13,6 +13,16 @@ class Pagination extends Component {
         this.maxPagesToShow = 5;
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.data.total !== this.props.data.total) {
+            this.setState({
+                current: 1,
+                start: 1,
+                end: this.maxPaginationShow()
+            });
+        }
+    }
+
     getNumberPage = () => {
         const { perPage, total } = this.props.data;
         return Math.ceil(total / perPage);
@@ -119,7 +129,7 @@ class Pagination extends Component {
                     <button className="pagination__button" onClick={this.lastPage}><i className="material-icons">last_page</i></button>
                 </div>
                 <div className="pagination__info">
-                    {this.props.data.perPage} of {this.props.data.total} <span className="pagination__info--span">Reg</span>
+                    {this.props.data.perPage * this.state.start} of {this.props.data.total} <span className="pagination__info--span">Reg</span>
                 </div>
             </div>
         );
