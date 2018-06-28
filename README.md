@@ -1,10 +1,44 @@
 # React-Marvel
 
-This is a personal project for learning React using the Marvel's API:
+This is a personal project for learning React, using the Marvel's API:
 
 | React  | Marvel's API |
 | ------------- | ------------- |
 | [<img src="https://cdn-images-1.medium.com/max/1468/1*kt9otqHk14BZIMNruiG0BA.png" title="Reactjs" width=100>](https://reactjs.org/)  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MarvelLogo.svg/2000px-MarvelLogo.svg.png" title="Marvel" width=100>](https://developer.marvel.com/)  |
+
+
+The Marvel's API is a little slow, so you must be patient.
+
+## API Key
+
+Go to [Marvel site](https://developer.marvel.com/) in order to obtain your API Key.
+
+Once you have an API Key, follow the next steps:
+
+1. Create a file called `.env.local` in the root
+```
+react-marvel/
+  node_modules/
+  public/
+  src/
+  package.json
+  README.md
+  .env.local
+```
+2. Inside of this file, paste the following: `REACT_APP_API_KEY = 'YOUR API KEY'`
+
+## Preview
+
+This a demo of some modules.
+
+### Characters
+<img src="./public/images/previews/Characters.gif" title="Characters" width=600>
+
+### Creators
+<img src="./public/images/previews/Creators.gif" title="Creators" width=600>
+
+### Series
+<img src="./public/images/previews/Series.gif" title="Series" width=600>
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
