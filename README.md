@@ -30,13 +30,13 @@ react-marvel/
 ## Screenshots
 
 ### Characters
-<img src="./public/images/previews/characters.gif" title="Characters" width=600>
+<img src="./public/images/previews/Characters.gif" title="Characters" width=600>
 
 ### Creators
-<img src="./public/images/previews/creators.gif" title="Creators" width=600>
+<img src="./public/images/previews/Creators.gif" title="Creators" width=600>
 
 ### Series
-<img src="./public/images/previews/series.gif" title="Series" width=600>
+<img src="./public/images/previews/Series.gif" title="Series" width=600>
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
